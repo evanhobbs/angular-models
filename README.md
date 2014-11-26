@@ -27,7 +27,7 @@ model.fetch();
 model.set({ name: 'test' });
 model.save();
 console.log(model.toJSON());
-
+````
 
 ### To do:
 - achieve better parity and consistency with how Backbone methods, arguments, etc.
