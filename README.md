@@ -6,7 +6,7 @@ custom methods too, call fetch on to update new data, etc. I didn't find anythin
 so I built a very simple, rough implementation that I hopefully expand upon.
 
 ### How to use
-- Add a script tag for angular-backbone-models.js
+- Add a script tag for underscore.js (http://underscorejs.org/) and angular-backbone-models.js
 - Add 'abModels' as a dependency of your app or module:
 ````
 angular.module( 'myApp', ['abModels']);
