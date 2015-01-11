@@ -50,4 +50,3 @@ now in the template:
 - remove dependency on underscore
 - clean up
 - better docs and instructions
-- convert tabs to spaces
