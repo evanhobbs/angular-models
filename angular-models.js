@@ -1,29 +1,30 @@
 //     Angular Backbone Models
 //     (c) 2014 Evan Hobbs
 //     May be freely distributed under the MIT license.
-(function(factory){
+(function(factory) {
+
 	//for AMD environments
 	if (typeof define === 'function' && define.amd) {
-		define(['underscore', 'angular'], function(_) {
-			factory(angular, _)
+		define(['underscore', 'angular'], function(_, angular) {
+			//if angular isn't exporting anyting then grab the window version 
+			factory(angular || window.angular, _)
 		});
 
 	//Node/commonJS
 	} else if (typeof exports !== 'undefined') {
 		var _ = require('underscore');
 		require('angular');
-		factory(angular, _);
+		//if angular doesn't export itself yet so just grab the window version
+		factory(window.angular, _);
 
 	// Where dependencies are already loaded as globals
 	} else {
-		console.log('this one', _)
-		factory(angular, _);		
+		factory(window.angular, window._);		
 	}
 
 
-})(function(angular, _){
-	angular.module('abModels', [])
-
+}(function (angular, _){
+	angular.module('angular-models', [])
 	/*==========  Base Model  ==========*/
 	.factory('Model', function(extend, $rootScope, $http){
 		var Model = function(attributes, options){
@@ -262,4 +263,5 @@
 		};
 		return extend;
 	});
-});
+}));
+

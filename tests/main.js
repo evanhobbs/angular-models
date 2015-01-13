@@ -1,9 +1,10 @@
 angular.module( 'test', [
-	'abModels'
+	'angular-models'
 ])
 
 .config(function() {
 })
 
-.run(function () {
+.run(function (Model) {
+	console.log(Model)
 })
