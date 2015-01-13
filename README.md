@@ -1,4 +1,4 @@
-# Angular Backbone Models
+# Angular Models
 
 Backbone-style models for Angular. If you're like me, one of the things you miss the most switching
 to Angular is the lack of clearly defined models and collections which you can pass around, attach
