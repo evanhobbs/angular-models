@@ -20,7 +20,7 @@ module.exports = function(config) {
       'node_modules/underscore/underscore.js',
       'node_modules/chai/chai.js',
       'angular-models.js',
-      'test/test.js'
+      'tests/**/*.js'
     ],
 
 
