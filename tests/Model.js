@@ -11,10 +11,8 @@ describe('Model', function(){
 	}))
 
 	it('sets attributes passed in', inject(function(Model){
-		console.log(Model)
 		//the initial model attributes should be empty
 		expect(model.attributes).to.deep.equal({});
-		console.log(model, Model)
 		//test with a new model passing in attributes
 		model = new Model({ a: 1, b: 2, c: 2 })
 		expect(model.attributes).to.deep.equal({ a: 1, b: 2, c: 2 });

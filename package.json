@@ -4,7 +4,7 @@
   "description": "Backbone style models and collections for Angular!",
   "main": "angular-backbone-models.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha test"
+    "test": "node_modules/karma/bin/karma start"
   },
   "author": "Evan Hobbs",
   "license": "MIT",
