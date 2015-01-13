@@ -2,7 +2,7 @@
   "name": "angular-backbone-models",
   "version": "0.0.0",
   "description": "Backbone style models and collections for Angular!",
-  "main": "angular-backbone-models.js",
+  "main": "angular-models.js",
   "scripts": {
     "test": "node_modules/karma/bin/karma start"
   },
