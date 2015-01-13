@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/evanhobbs/angular-models.svg?branch=master)](https://travis-ci.org/evanhobbs/angular-models)
 # Angular Models
 
 Backbone-style models for Angular. If you're like me, one of the things you miss the most switching
