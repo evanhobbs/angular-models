@@ -87,7 +87,7 @@
 		}
 	})
 	/*==========  Base Model  ==========*/
-	.factory('Model', function($rootScope, $http, sync){
+	.factory('Model', function($http, sync){
 		var Model = function(attributes, options){
 			options = options || {};
 			this.atts = this.attributes = {};
@@ -200,7 +200,7 @@
 
 
 	/*==========  Base Collection  ==========*/
-	.factory('Collection', function($q, Model, $rootScope, $http){
+	.factory('Collection', function($q, Model, $http){
 
 		var Collection = function(models, options){
 			options = options || {};
