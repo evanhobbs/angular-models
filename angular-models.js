@@ -140,16 +140,17 @@
 			},
 
 			save: function(options){
+				options = options || {};
 				var that = this, xhr;
-				xrh = sync(this.isNew() ? 'create' : 'update', this);
-				// if (this.isNew()) xhr = $http.post(this.urlRoot, this.attributes);
-				// else xhr = $http.put(this.urlRoot + '/' + this.id, this.attributes);
+				var method = this.isNew() ? 'create' : 'update';
+				var success = options.success;
 
-				xhr.success(function(data, status, headers, config){
+				options.success = function(data, status, headers, config){
 					that.set(that.parse(data));
-				});
+					if (success) success(model, data, options);
+				}
 
-				return xhr;
+				return sync(method, this, options);
 			},
 
 			// A model is new if it has never been saved to the server, and lacks an id.
