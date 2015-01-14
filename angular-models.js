@@ -25,6 +25,7 @@
 
 }(function (angular, _){
 
+	//copied (lovingly) from backbone source code
 	var extend = function(protoProps, staticProps) {
 		var parent = this;
 		var child;
@@ -60,28 +61,57 @@
 	};
 
 
+
 	angular.module('angular-models', [])
-	/*==========  Base Model  ==========*/
-	.factory('Model', function($rootScope, $http){
-		var Model = function(attributes, options){
-			attributes = attributes || {};
-			this.attributes = {};
+	.factory('sync', function($http){
+		var methodMap = {
+			'create': 'post',
+			'read':   'get',
+			'update': 'put',
+			'delete': 'delete',
+			'patch': 'put'
+		};
+		return function(method, model, options){
 			options = options || {};
+			var data, args;
+			//if it's a put or post request put the data in the body
+			if (_.contains(['create', 'update', 'patch'], method)) {
+				args = [model.url(), model.toJSON()];
+			}
+			else args = [model.url()];
+
+			var xhr = $http[methodMap[method]].apply(this, args);
+			xhr.then(options.success, options.error);
+			xhr.finally(options.finally);
+			return xhr;
+		}
+	})
+	/*==========  Base Model  ==========*/
+	.factory('Model', function($rootScope, $http, sync){
+		var Model = function(attributes, options){
+			options = options || {};
+			this.atts = this.attributes = {};
+			attributes = _.defaults({}, attributes, _.result(this, 'defaults'));
 			this.options = options;
-			attributes = this.parse(attributes);
+			if (options.collection) this.collection = options.collection;
+			if (options.parse) attributes = this.parse(attributes);
 			this.set(attributes);
-			this.atts = attributes;
-			this.id = attributes.id;
+			this.id = attributes[this.idAttribute];
 			this.initialize.apply(this, arguments);
 		}
 
 		Model.extend = extend;
 
 		_.extend(Model.prototype, {
-			urlPath: '',
 
-			set: function(atts){
-				_.extend(this.attributes, atts);
+			idAttribute: 'id',
+
+			urlRoot: null,
+
+			url: function(){
+				var base = _.result(this, 'urlRoot') || _.result(this.collection, 'url') || '';
+				if (this.isNew()) return base;
+				return base.replace(/([^\/])$/, '$1/') + encodeURIComponent(this.id);				
 			},
 
 			initialize: function(){},
@@ -90,21 +120,34 @@
 				return response;
 			},
 
+			set: function(key, val){
+				if (!key) return this;
+				var attrs = {};
+				//if the passed in key is an object than the key is the attrs
+				if (typeof key === 'object') attrs = key;
+				//otherwise construct the attrs from the key value;
+				else attrs[key] = val;
+				_.extend(this.attributes, attrs);
+				this.id = this.attributes[this.idAttribute];
+			},
+
+			get: function(attr) {
+			  return this.attributes[attr];
+			},
+
 			toJSON: function(options) {
 			  return _.clone(this.attributes);
 			},
 
 			save: function(options){
 				var that = this, xhr;
-				if (this.isNew()) xhr = $http.post(this.urlRoot, this.attributes);
-				else xhr = $http.put(this.urlRoot + '/' + this.id, this.attributes);
+				xrh = sync(this.isNew() ? 'create' : 'update', this);
+				// if (this.isNew()) xhr = $http.post(this.urlRoot, this.attributes);
+				// else xhr = $http.put(this.urlRoot + '/' + this.id, this.attributes);
 
 				xhr.success(function(data, status, headers, config){
-					if (typeof data === 'object') {
-						that.id = data.id;
-						that.set(data);					
-					}
-				})
+					that.set(that.parse(data));
+				});
 
 				return xhr;
 			},
@@ -168,8 +211,6 @@
 		Collection.extend = extend;
 
 		_.extend(Collection.prototype, {
-
-			urlPath: '',
 
 			Model: Model,
 
