@@ -24,9 +24,7 @@
 
 
 }(function (angular, _){
-	// Helper function to correctly set up the prototype chain, for subclasses.
-	// Similar to `goog.inherits`, but uses a hash of prototype properties and
-	// class properties to be extended.
+
 	var extend = function(protoProps, staticProps) {
 		var parent = this;
 		var child;
@@ -67,10 +65,14 @@
 	.factory('Model', function($rootScope, $http){
 		var Model = function(attributes, options){
 			attributes = attributes || {};
+			this.attributes = {};
 			options = options || {};
-			this.options = options
-			this.attributes = attributes;
-			if (typeof attributes.id !== 'undefined') { this.id = attributes.id }
+			this.options = options;
+			attributes = this.parse(attributes);
+			this.set(attributes);
+			this.atts = attributes;
+			this.id = attributes.id;
+			this.initialize.apply(this, arguments);
 		}
 
 		Model.extend = extend;
@@ -80,6 +82,12 @@
 
 			set: function(atts){
 				_.extend(this.attributes, atts);
+			},
+
+			initialize: function(){},
+
+			parse: function(response){
+				return response;
 			},
 
 			toJSON: function(options) {

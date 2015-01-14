@@ -1,6 +1,3 @@
-//for concision just use expect
-var expect = chai.expect;
-
 describe('Model', function(){
 	beforeEach(module('angular-models'))
 
@@ -16,7 +13,10 @@ describe('Model', function(){
 		//test with a new model passing in attributes
 		model = new Model({ a: 1, b: 2, c: 2 })
 		expect(model.attributes).to.deep.equal({ a: 1, b: 2, c: 2 });
+		//it should also have a shorthand for attributes (atts)
+		expect(model.atts).to.be.an('object');
 	}));
+
 	it('has the passed in options attached to it', inject(function(Model){
 		//the original model should have an empty options object
 		expect(model.options).to.deep.equal({});
@@ -24,4 +24,16 @@ describe('Model', function(){
 		model = new Model(null, { a: 1, b: 2, c: 2 })
 		expect(model.options).to.deep.equal({ a: 1, b: 2, c: 2 });
 	}));
+
+	it('has a parse method which returns exactly what is passed in', function(){
+		expect(model.parse).to.be.a('function');
+		expect(model.parse({a: 1, b: 2 })).to.deep.equal({a: 1, b: 2 })
+	})
+	
+	it('has an initialize method which gets called on contruction', inject(function(Model){
+		sinon.spy(Model.prototype, 'initialize');
+		model = new Model();
+		expect(Model.prototype.initialize).to.have.been.called;
+		Model.prototype.initialize.restore();
+	}))
 });
