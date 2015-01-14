@@ -1,14 +1,15 @@
 describe('Model', function(){
 
-	var model;
+	var model, Model;
 
 	beforeEach(module('angular-models'))
 
-	beforeEach(inject(function(Model, Collection){
+	beforeEach(inject(function(_Model_){
+		Model = _Model_;
 		model = new Model();
 	}));
 
-	it('sets attributes passed in', inject(function(Model){
+	it('sets attributes passed in', function(){
 		//the initial model attributes should be empty
 		expect(model.attributes).to.deep.equal({});
 		//test with a new model passing in attributes
@@ -16,22 +17,22 @@ describe('Model', function(){
 		expect(model.attributes).to.deep.equal({ a: 1, b: 2, c: 2 });
 		//it should also have a shorthand for attributes (atts)
 		expect(model.atts).to.be.an('object');
-	}));
+	});
 
-	it('has the passed in options attached to it', inject(function(Model){
+	it('has the passed in options attached to it', function(){
 		//the original model should have an empty options object
 		expect(model.options).to.deep.equal({});
 		//test with a new model passing in options
 		model = new Model(null, { a: 1, b: 2, c: 2 })
 		expect(model.options).to.deep.equal({ a: 1, b: 2, c: 2 });
-	}));
+	});
 
 	it('has a parse method which returns exactly what is passed in', function(){
 		expect(model.parse).to.be.a('function');
 		expect(model.parse({a: 1, b: 2 })).to.deep.equal({a: 1, b: 2 })
 	})
 
-	it('only parses on init if the parse option is passed in', inject(function(Model){
+	it('only parses on init if the parse option is passed in', function(){
 		sinon.spy(Model.prototype, 'parse');
 		model = new Model();
 		expect(Model.prototype.parse).to.not.have.been.called;
@@ -39,33 +40,33 @@ describe('Model', function(){
 		expect(Model.prototype.parse).to.have.been.called;
 		Model.prototype.parse.restore();
 
-	}))
+	});
 
-	it('has an initialize method which gets called on contruction', inject(function(Model){
+	it('has an initialize method which gets called on contruction', function(){
 		sinon.spy(Model.prototype, 'initialize');
 		model = new Model();
 		expect(Model.prototype.initialize).to.have.been.called;
 		Model.prototype.initialize.restore();
-	}));
+	});
 
-	it('if passed a collection as an option it will attach the collection as a property', inject(function(Model){
+	it('if passed a collection as an option it will attach the collection as a property', function(){
 		var obj = {};
 		expect(model.collection).to.be.undefined;
 		model = new Model(null, { collection: obj });
 		expect(model.collection).to.equal(obj);
-	}))
+	});
 
-	it('sets the id when an id is present on init', inject(function(Model){
+	it('sets the id when an id is present on init', function(){
 		expect(model.id).to.be.undefined;
 		model = new Model({ id: 555 });
 		expect(model.id).to.equal(555)
-	}));
+	});
 
-	it('has an idAttribute which can be overridden', inject(function(Model){
+	it('has an idAttribute which can be overridden', function(){
 		expect(Model.prototype.idAttribute).to.equal('id');
 		var MyModel = Model.extend({ idAttribute: '_id' });
 		expect(MyModel.prototype.idAttribute).to.equal('_id')
-	}));
+	});
 
 	it('has a urlRoot property', function(){
 		expect(model.urlRoot).to.be.defined;
@@ -121,5 +122,5 @@ describe('Model', function(){
 		expect(model.url()).to.equal('api');
 		model.id = 234234;
 		expect(model.url()).to.equal('api/234234');
-	})
+	});
 });
