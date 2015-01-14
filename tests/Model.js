@@ -1,7 +1,8 @@
 describe('Model', function(){
-	beforeEach(module('angular-models'))
 
 	var model;
+
+	beforeEach(module('angular-models'))
 
 	beforeEach(inject(function(Model, Collection){
 		model = new Model();
@@ -29,7 +30,7 @@ describe('Model', function(){
 		expect(model.parse).to.be.a('function');
 		expect(model.parse({a: 1, b: 2 })).to.deep.equal({a: 1, b: 2 })
 	})
-	
+
 	it('has an initialize method which gets called on contruction', inject(function(Model){
 		sinon.spy(Model.prototype, 'initialize');
 		model = new Model();
