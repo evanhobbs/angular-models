@@ -1,5 +1,6 @@
 describe('Model', function(){
 
+
 	var model, Model;
 
 	beforeEach(module('angular-models'))
