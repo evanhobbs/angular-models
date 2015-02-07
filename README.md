@@ -47,7 +47,7 @@ now in the template:
 ````
 ### To do:
 - achieve better parity and consistency with how Backbone methods, arguments, etc.
-- add tests
+- finish tests
 - remove dependency on underscore
 - clean up
 - better docs and instructions
