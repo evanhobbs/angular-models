@@ -10,7 +10,7 @@ so I built a very simple, rough implementation that I will hopefully expand upon
 - Add a script tag for underscore.js (http://underscorejs.org/) and angular-backbone-models.js
 - Add 'abModels' as a dependency of your app or module:
 ````
-angular.module( 'myApp', ['abModels']);
+angular.module( 'myApp', ['angular-models']);
 ````
 - Inject 'Model' or 'Collection' and extend it just you would a backbone model giving it a 'urlRoot'
 for the model or 'url' for the collection just as in Backbone. See backbone (http://backbonejs.org)
