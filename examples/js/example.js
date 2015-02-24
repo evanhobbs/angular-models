@@ -6,7 +6,7 @@ var collectionData = [
 	{ id: 4, title: 'Testing4' }
 ]
 
-//1. Make sure angular-models.js is loaded
+//1. Make sure underscore.js, underscore, and angular-models.js
 //2. Specify 'angular-models' as a dependency
 angular.module( 'exampleApp', ['angular-models'])
 

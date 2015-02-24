@@ -1,14 +1,13 @@
 [![Build Status](https://travis-ci.org/evanhobbs/angular-models.svg?branch=master)](https://travis-ci.org/evanhobbs/angular-models)
 # Angular Models
 
-Backbone-style models for Angular. If you're like me, one of the things you miss the most switching
-to Angular is the lack of clearly defined models and collections which you can pass around, attach
-custom methods too, call fetch on to update new data, etc. I didn't find anything that fit my needs
-so I built a very simple, rough implementation that I will hopefully expand upon.
+
+Backbone-style models for Angular. If you're like me, one of the things you miss working with Angular is the lack of clearly defined models and collections which you can pass around to various parts of your app, attach custom methods to, call fetch on to refresh data, etc. I didn't find anything to my needs so I built a simple implementation of backbone models.
 
 ### How to use
+*Check out the examples directory for a full working implementation with comments*
 - Add a script tag for underscore.js (http://underscorejs.org/) and angular-backbone-models.js
-- Add 'abModels' as a dependency of your app or module:
+- Add 'angular-models' as a dependency of your app or module:
 ````
 angular.module( 'myApp', ['angular-models']);
 ````
@@ -29,25 +28,26 @@ model.set({ name: 'test' });
 model.save();
 console.log(model.toJSON());
 ````
-- One thing to look out for is that the template will want to display the models attributes not the
-model itself. For instance:
+
+### How to use
+- The model's attributes are stored as model.atts (shorthand for model.attributes) so your template will need to reference model.atts not just model:
 ````
 $scope.model = model;
 now in the template this will not work:
 <p>{{model.title}}</p>
 but this will:
-<p>{{model.attributes.title}}</p>
+<p>{{model.atts.title}}</p>
 ````
-- the same thing goes for collections as you will want to use things like ng-repeat on the collection's
-models not the collection itself:
+- similarly a collections models are stored as collection.models so things like ng-repeat must reference the collection.models:
 ````
 $scope.collection = collection;
 now in the template:
 <p ng-repeat="model in collection.models">{{model.attributes.title}}</p>
 ````
 ### To do:
+Want to help? *Yes!*
 - achieve better parity and consistency with how Backbone methods, arguments, etc.
-- finish tests
-- remove dependency on underscore
+- better test coverage
+- remove dependency on underscore by using angular built in methods
 - clean up
 - better docs and instructions
