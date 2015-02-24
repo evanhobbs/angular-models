@@ -29,7 +29,7 @@ model.save();
 console.log(model.toJSON());
 ````
 
-### How to use
+### A couple gotchas
 - The model's attributes are stored as model.atts (shorthand for model.attributes) so your template will need to reference model.atts not just model:
 ````
 $scope.model = model;
