@@ -8,6 +8,8 @@
 <body ng-controller="exampleController">
 
 	<h2>{{model.atts.title}}</h2>
-	
+	<ul>
+		<li ng-repeat="collectionModel in collection.models">{{collectionModel.atts.title}}</li>
+	</ul>
 </body>
 </html>

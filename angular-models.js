@@ -89,6 +89,7 @@
 	/*==========  Base Model  ==========*/
 	.factory('Model', function($http, sync){
 		var Model = function(attributes, options){
+			this._isModel = true;
 			options = options || {};
 			this.atts = this.attributes = {};
 			attributes = _.defaults({}, attributes, _.result(this, 'defaults'));
@@ -205,8 +206,9 @@
 
 		var Collection = function(models, options){
 			options = options || {};
-			this.options = options
+			this.options = options;
 			this.models = [];
+			if (models) this.add(models);
 		};
 
 		Collection.extend = extend;
@@ -235,6 +237,7 @@
 			},
 
 			add: function(models){
+				console.log(models)
 				var that = this;
 				//ensure that models is an array even if an object is passed;
 				_.flatten([models], true);
@@ -311,4 +314,3 @@
 	})
 
 }));
-
