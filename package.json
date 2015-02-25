@@ -1,6 +1,6 @@
 {
   "name": "angular-models",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Backbone-style models and collections for Angular!",
   "main": "angular-models.js",
   "scripts": {
@@ -19,5 +19,11 @@
     "karma-chai-sinon": "^0.1.4",
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4"
-  }
+  },
+  "repository" :
+    {
+      "type" : "git",
+      "url" : "http://github.com/evanhobbs/angular-models.git"
+    }
+
 }
