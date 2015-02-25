@@ -6,7 +6,7 @@ Backbone-style models for Angular. If you're like me, one of the things you miss
 
 ### How to use
 *Check out the examples directory for a full working implementation with comments*
-- Add a script tag for underscore.js (http://underscorejs.org/) and angular-backbone-models.js
+- Add a script tag for underscore.js (http://underscorejs.org/) and angular-models.js
 - Add 'angular-models' as a dependency of your app or module:
 ````
 angular.module( 'myApp', ['angular-models']);
