@@ -142,12 +142,12 @@
 
 			save: function(options){
 				options = options || {};
-				var that = this, xhr;
+				var model = this;
 				var method = this.isNew() ? 'create' : 'update';
 				var success = options.success;
 
 				options.success = function(data, status, headers, config){
-					that.set(that.parse(data));
+					model.set(model.parse(data));
 					if (success) success(model, data, options);
 				}
 
