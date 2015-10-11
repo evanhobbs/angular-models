@@ -245,7 +245,7 @@
 					var model = that.get(newModel.id);
 					//if the model doesn't exist already create a new one
 					if (!model) {
-						model = new that.model(newModel);
+						model = new that.Model(newModel);
 						that.models.push(model);
 						//preserve a reference to the parent collection
 						model.collection = that;
